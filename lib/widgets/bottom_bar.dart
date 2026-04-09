@@ -8,7 +8,7 @@ class CustomBottomBar extends StatefulWidget {
 }
 
 class _CustomBottomBarState extends State<CustomBottomBar> {
-  // Widget eka athulema index eka manage karanawa
+
   int _currentIndex = 0;
 
   @override
@@ -38,7 +38,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
           iconSize: 30,
           onTap: (index) {
             setState(() {
-              _currentIndex = index; // Icon eka click karama highlight eka maru wenawa
+              _currentIndex = index;
             });
           },
           items: const [
