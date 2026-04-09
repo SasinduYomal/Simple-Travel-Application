@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/status_card.dart';
 import '../widgets/menu_items.dart';
 import '../widgets/bottom_bar.dart';
+import './home_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

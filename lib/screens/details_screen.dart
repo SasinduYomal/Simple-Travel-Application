@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/bottom_bar.dart';
+import '../screens/favorites_screen.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({super.key});
@@ -33,7 +34,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
               backgroundColor: Colors.white.withOpacity(0.8),
               child: IconButton(
                 icon: const Icon(Icons.favorite, color: Colors.red, size: 24),
-                onPressed: () {},
+                onPressed: () {
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FavoritesScreen(),
+                    ),
+                  );
+                },
               ),
             ),
           ),

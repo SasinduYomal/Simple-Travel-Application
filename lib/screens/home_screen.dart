@@ -3,6 +3,8 @@ import '../widgets/bannerCard.dart';
 import '../widgets/category_card.dart';
 import '../widgets/place_card.dart';
 import '../widgets/bottom_bar.dart';
+import '../screens/details_screen.dart';
+import '../screens/profile_screen.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -36,12 +38,20 @@ class _HomeScreenState extends State<HomeScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 12),
-            child: Icon(
-              Icons.person,
-              color: Colors.black,
+            padding: const EdgeInsets.only(right: 12),
+            child: IconButton(
+              icon: const Icon(Icons.person, color: Colors.black),
+              onPressed: () {
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(),
+                  ),
+                );
+              },
             ),
           ),
         ],
@@ -84,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           CategoryCard(
                             label: "Mountains",
                             emoji: "⛰️",
-                            backgroundColor: Color(0xFFF3F3F3),
+                            backgroundColor: Color(0xFFF3F2F2),
                           ),
                           CategoryCard(
                             label: "Cities",
@@ -115,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children:  [
                     Text(
                       "Popular Places",
                       style: TextStyle(
@@ -131,6 +141,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       location: 'Colombo',
                       description: 'Scenic beach offering hotels & nearby restaurants.',
                       rating: 4.0,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DetailsScreen(), // 👈 Details page එකට navigate වෙනවා
+                          ),
+                        );
+                      },
                     ),
 
                     PlaceCard(
@@ -139,6 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       location: 'Dambulla',
                       description: 'Ancient rock fortress with world-famous frescoes.',
                       rating: 5.0,
+                      onTap: null,
                     ),
 
                     PlaceCard(
@@ -147,6 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       location: 'Ella',
                       description: 'A beautiful railway bridge surrounded by tea trees.',
                       rating: 4.5,
+                      onTap: null,
                     ),
                     PlaceCard(
                       imagePath: 'assets/nuwaraeliya.jpg',
@@ -154,6 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       location: 'Nuwara Eliya',
                       description: 'Gregory Lake in Nuwara Eliya is a peaceful attraction surrounded by cool-climate greenery and misty hills.',
                       rating: 2.0,
+                      onTap: null,
                     ),
 
                     SizedBox(height: 20),
