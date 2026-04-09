@@ -125,7 +125,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(height: 10),
 
-                    // PlaceCards ටික
                     PlaceCard(
                       imagePath: 'assets/mount_lavinia.jpg',
                       title: 'Mount Lavinia Beach',
