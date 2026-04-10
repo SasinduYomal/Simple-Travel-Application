@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
-class CustomBottomBar extends StatefulWidget {
-  const CustomBottomBar({super.key});
+class CustomBottomBar extends StatelessWidget {
+  final int currentIndex;
+  final Function(int) onTap;
 
-  @override
-  State<CustomBottomBar> createState() => _CustomBottomBarState();
-}
-
-class _CustomBottomBarState extends State<CustomBottomBar> {
-
-  int _currentIndex = 0;
+  const CustomBottomBar({
+    super.key,
+    required this.currentIndex,
+    required this.onTap
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +31,11 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
           type: BottomNavigationBarType.fixed,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          currentIndex: _currentIndex,
+          currentIndex: currentIndex,
           selectedItemColor: Colors.black,
           unselectedItemColor: Colors.black54,
           iconSize: 30,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
+          onTap: onTap,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
