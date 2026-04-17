@@ -1,0 +1,70 @@
+import '../models/place.dart';
+
+const List<Place> places = [
+  Place(
+    id: '1',
+    name: 'Mount Lavinia Beach',
+    location: 'Colombo',
+    description:
+    'Mount Lavinia Beach in Sri Lanka is a main sea-bathing spot in the island. Here, depending on season, the waves can be swimmable and it\'s host to some amazing sunsets. Mt Lavinia Beach offering a stretch of sand, waves, lifeguards, hotels & nearby restaurants. It is always advised that people swim near groups and always keep a close eye on children (and pets).',
+    rating: 4.0,
+    imagePath: 'assets/place1.jpg',
+    category: 'Beach',
+    isFavourite: true,
+  ),
+  Place(
+    id: '2',
+    name: 'Gregory Lake',
+    location: 'Nuwara Eliya',
+    description:
+    'Gregory Lake is a peaceful attraction surrounded by misty hills.',
+    rating: 4.3,
+    imagePath: 'assets/place2.jpg',
+    category: 'Beach',
+    isFavourite: true,
+  ),
+  Place(
+    id: '3',
+    name: 'Sigiriya Rock Fortress',
+    location: 'Matale',
+    description:
+    'An ancient rock fortress and palace ruin in the central Matale District. A UNESCO World Heritage Site surrounded by lush greenery.',
+    rating: 4.8,
+    imagePath: 'assets/place3.jpg',
+    category: 'Mountains',
+    isFavourite: false,
+  ),
+  Place(
+    id: '4',
+    name: 'Ella Rock',
+    location: 'Ella',
+    description:
+    'A popular hiking destination offering stunning views of the surrounding tea plantations and valleys. Best visited at sunrise.',
+    rating: 4.6,
+    imagePath: 'assets/place4.jpg',
+    category: 'Mountains',
+    isFavourite: true,
+  ),
+  Place(
+    id: '5',
+    name: 'Galle Fort',
+    location: 'Galle',
+    description:
+    'A historic fort built first in 1588 by the Portuguese and then extensively fortified by the Dutch. A UNESCO World Heritage Site.',
+    rating: 4.5,
+    imagePath: 'assets/place5.jpg',
+    category: 'Cities',
+    isFavourite: false,
+  ),
+  Place(
+    id: '6',
+    name: 'Kandy City',
+    location: 'Kandy',
+    description:
+    'The cultural capital of Sri Lanka, home to the famous Temple of the Tooth Relic and surrounded by misty mountains.',
+    rating: 4.7,
+    imagePath: 'assets/place6.jpg',
+    category: 'Cities',
+    isFavourite: false,
+  ),
+];

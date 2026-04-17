@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import '../screens/navigation_wrapper.dart';
+import '../models/place.dart';
 
-class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({super.key});
+class DetailsScreen extends StatelessWidget {
+  final Place place;
 
-  @override
-  State<DetailsScreen> createState() => _DetailsScreenState();
-}
+  const DetailsScreen({super.key, required this.place});
 
-class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,15 +30,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
             child: CircleAvatar(
               backgroundColor: Colors.white.withOpacity(0.8),
               child: IconButton(
-                icon: const Icon(Icons.favorite, color: Colors.red, size: 24),
+                icon: Icon(
+                  place.isFavourite ? Icons.favorite : Icons.favorite_border,
+                  color: place.isFavourite ? Colors.red : Colors.grey,
+                  size: 24,
+                ),
                 onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const MainWrapper(initialIndex: 1),
-                    ),
-                        (route) => false,
-                  );
+                  print("Favorite clicked!");
                 },
               ),
             ),
@@ -57,8 +52,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 bottomRight: Radius.circular(30),
               ),
               child: Image.asset(
-                'assets/mount_lavinia.jpg',
-                height: 400,
+                place.imagePath,
+                height: 420,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
@@ -71,49 +66,62 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'Mount Lavinia Beach',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF0D47A1),
+                      Expanded(
+                        child: Text(
+                          place.name,
+                          style: const TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF0D47A1),
+                          ),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
-                          color: Colors.yellow[100],
+                          color: Colors.orange[50],
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Icon(Icons.star, color: Colors.orange, size: 20),
-                            Text(' 4.0', style: TextStyle(fontWeight: FontWeight.bold)),
+                            const Icon(Icons.star, color: Colors.orange, size: 20),
+                            Text(
+                              ' ${place.rating}',
+                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
                           ],
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 10),
-                  const Row(
+                  Row(
                     children: [
-                      Icon(Icons.location_on, color: Colors.red, size: 20),
-                      SizedBox(width: 5),
+                      const Icon(Icons.location_on, color: Colors.redAccent, size: 20),
+                      const SizedBox(width: 5),
                       Text(
-                        'Colombo, Sri Lanka',
-                        style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600),
+                        place.location,
+                        style: const TextStyle(
+                          color: Colors.redAccent,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 25),
                   const Text(
                     'About this Place',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'Mount Lavinia Beach in Sri Lanka is a main sea-bathing spot in the island. Here, depending on season, the waves can be swimmable and it\'s host to some amazing sunsets...',
-                    style: TextStyle(color: Colors.black87, height: 1.6, fontSize: 15),
+                  const SizedBox(height: 12),
+                  Text(
+                    place.description,
+                    style: const TextStyle(
+                      color: Colors.black87,
+                      height: 1.6,
+                      fontSize: 15,
+                    ),
                   ),
                   const SizedBox(height: 40),
                   SizedBox(
@@ -126,10 +134,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
+                        elevation: 5,
                       ),
                       child: const Text(
                         'Plan to visit',
-                        style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'screens/home_screen.dart';
 import 'screens/navigation_wrapper.dart';
 
@@ -20,4 +21,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

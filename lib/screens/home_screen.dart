@@ -3,24 +3,34 @@ import '../widgets/bannerCard.dart';
 import '../widgets/category_card.dart';
 import '../widgets/place_card.dart';
 import '../screens/details_screen.dart';
+import '../models/place.dart';
+import '../data/places_data.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  String selectedCategory = 'All';
+
+  @override
   Widget build(BuildContext context) {
+    List<Place> filteredPlaces = selectedCategory == 'All'
+        ? places
+        : places.where((p) => p.category == selectedCategory).toList();
+
     return Scaffold(
-      
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
         title: const Text(
           "Hi Sasindu 👋",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
       body: SafeArea(
@@ -41,18 +51,16 @@ class HomeScreen extends StatelessWidget {
                       "Popular Categories",
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 15),
                     SizedBox(
-                      height: 120,
-                      child: PageView(
-                        controller: PageController(viewportFraction: 0.33),
-                        padEnds: false,
+                      height: 100,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
                         children: [
-                          CategoryCard(label: "Beaches", emoji: "🏖️", backgroundColor: Colors.orange[50]!),
-                          CategoryCard(label: "Mountains", emoji: "⛰️", backgroundColor: Colors.blueGrey[50]!),
-                          CategoryCard(label: "Cities", emoji: "🏙️", backgroundColor: Colors.green[50]!),
-                          CategoryCard(label: "Country", emoji: "🌄", backgroundColor: Colors.pink[50]!),
-                          CategoryCard(label: "Forests", emoji: "🌲", backgroundColor: Colors.teal[50]!),
+                          _buildCategoryItem("All", Icons.grid_view_rounded),
+                          _buildCategoryItem("Beach", Icons.beach_access_rounded),
+                          _buildCategoryItem("Mountains", Icons.terrain_rounded),
+                          _buildCategoryItem("Cities", Icons.location_city_rounded),
                         ],
                       ),
                     ),
@@ -74,59 +82,42 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
 
-                    // 1. Mount Lavinia Beach
-                    PlaceCard(
-                      imagePath: 'assets/mount_lavinia.jpg',
-                      title: 'Mount Lavinia Beach',
-                      location: 'Colombo',
-                      description: 'Scenic beach offering hotels & nearby restaurants.',
-                      rating: 4.0,
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailsScreen()));
-                      },
-                    ),
-
-                    // 2. Sigiriya Rock
-                    PlaceCard(
-                      imagePath: 'assets/sigiriya.jpg',
-                      title: 'Sigiriya Rock',
-                      location: 'Dambulla',
-                      description: 'Ancient rock fortress with world-famous frescoes.',
-                      rating: 5.0,
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailsScreen()));
-                      },
-                    ),
-
-                    // 3. Nine Arch Bridge
-                    PlaceCard(
-                      imagePath: 'assets/ella.jpg',
-                      title: 'Nine Arch Bridge',
-                      location: 'Ella',
-                      description: 'A beautiful railway bridge surrounded by tea trees.',
-                      rating: 4.5,
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailsScreen()));
-                      },
-                    ),
-                    PlaceCard(
-                      imagePath: 'assets/nuwaraeliya.jpg',
-                      title: 'Gregory Lake',
-                      location: 'Nuwara Eliya',
-                      description: 'Gregory Lake is a peaceful attraction surrounded by misty hills.',
-                      rating: 3.5,
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailsScreen()));
-                      },
-                    ),
-
-                    const SizedBox(height: 20),
+                    ...filteredPlaces.map((place) {
+                      return PlaceCard(
+                        name: place.name,
+                        location: place.location,
+                        imagePath: place.imagePath,
+                        description: place.description,
+                        rating: place.rating,
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => DetailsScreen(place: place))
+                          );
+                        },
+                      );
+                    }).toList(),
                   ],
                 ),
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildCategoryItem(String title, IconData icon) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedCategory = title;
+        });
+      },
+      child: CategoryCard(
+        label: title,
+        icon: icon,
+        isSelected: selectedCategory == title,
       ),
     );
   }

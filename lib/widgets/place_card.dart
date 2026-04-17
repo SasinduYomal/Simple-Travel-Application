@@ -2,25 +2,26 @@ import 'package:flutter/material.dart';
 
 class PlaceCard extends StatelessWidget {
   final String imagePath;
-  final String title;
+  final String name;
   final String location;
   final String description;
   final double rating;
-  final VoidCallback? onTap; // 👈 මේක දැනටමත් තියෙනවා
+  final bool isFavourite;
+  final VoidCallback? onTap;
 
   const PlaceCard({
     super.key,
     required this.imagePath,
-    required this.title,
+    required this.name,
     required this.location,
     required this.description,
     required this.rating,
+    this.isFavourite = false,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    // 👈 මුළු Card එකම GestureDetector එකකින් wrap කරමු
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -31,7 +32,7 @@ class PlaceCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(25),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withOpacity(0.05),
               blurRadius: 15,
               offset: const Offset(0, 8),
             ),
@@ -40,15 +41,36 @@ class PlaceCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 🖼️ Image Section
-            ClipRRect(
-              borderRadius: BorderRadius.circular(18),
-              child: Image.asset(
-                imagePath,
-                height: 110,
-                width: 110,
-                fit: BoxFit.cover,
-              ),
+            // 🖼️ Image Section with Favorite Icon Overlay
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(18),
+                  child: Image.asset(
+                    imagePath,
+                    height: 110,
+                    width: 110,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                // ❤️ Favorite Icon Overlay
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: const BoxDecoration(
+                      color: Colors.white60,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      isFavourite ? Icons.favorite : Icons.favorite_border,
+                      color: isFavourite ? Colors.red : Colors.grey[700],
+                      size: 18,
+                    ),
+                  ),
+                ),
+              ],
             ),
 
             const SizedBox(width: 15),
@@ -59,42 +81,54 @@ class PlaceCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 17,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
                   Text(
                     location,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black87,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.blueGrey[400],
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     description,
                     style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey[700],
+                      fontSize: 12,
+                      color: Colors.grey[600],
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 8),
 
-                  // ⭐ Rating Stars
+                  // ⭐ Rating Section
                   Row(
-                    children: List.generate(5, (index) {
-                      return Icon(
-                        index < rating.floor() ? Icons.star : Icons.star_border,
-                        color: Colors.amber,
-                        size: 20,
-                      );
-                    }),
+                    children: [
+                      ...List.generate(5, (index) {
+                        return Icon(
+                          index < rating.floor() ? Icons.star : Icons.star_border,
+                          color: Colors.amber,
+                          size: 18,
+                        );
+                      }),
+                      const SizedBox(width: 5),
+                      Text(
+                        rating.toString(),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
