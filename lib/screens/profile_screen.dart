@@ -23,8 +23,8 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   const CircleAvatar(radius: 60, backgroundImage: AssetImage("assets/profile.jpg")),
                   const SizedBox(height: 15),
-                  const Text("Sasindu Yomal", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white)),
-                  const Text("sasinduyomal22@gmail.com", style: TextStyle(fontSize: 16, color: Colors.white70)),
+                  const Text("Sasindu Yomal", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black)),
+                  const Text("sasinduyomal22@gmail.com", style: TextStyle(fontSize: 16, color: Colors.black)),
                 ],
               ),
             ),

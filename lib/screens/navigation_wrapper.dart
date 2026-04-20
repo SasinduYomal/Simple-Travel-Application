@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
-// import 'favourite_screen.dart';
-// import 'profile_screen.dart';
+import 'favourite_screen.dart';
+import 'profile_screen.dart';
+
 
 class MainWrapper extends StatefulWidget {
   final int initialIndex;
@@ -16,8 +17,8 @@ class _MainWrapperState extends State<MainWrapper> {
 
   final List<Widget> _screens = [
     const HomeScreen(),
-    const Center(child: Text("Favourite Screen")),
-    const Center(child: Text("Profile Screen")),
+    const FavoritesScreen(),
+    const ProfileScreen(),
   ];
 
   @override

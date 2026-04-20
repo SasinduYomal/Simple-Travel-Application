@@ -18,4 +18,17 @@ class Place {
     required this.category,
     this.isFavourite = false,
   });
+
+  Place copyWith({bool? isFavourite}) {
+    return Place(
+      id: id,
+      name: name,
+      location: location,
+      description: description,
+      rating: rating,
+      imagePath: imagePath,
+      category: category,
+      isFavourite: isFavourite ?? this.isFavourite,
+    );
+  }
 }

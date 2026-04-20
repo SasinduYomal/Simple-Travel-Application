@@ -32,22 +32,13 @@ class FavoritePlaceCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-
           Container(
             width: 110,
             decoration: BoxDecoration(
-
-              image: DecorationImage(
-                image: AssetImage(imagePath),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(25),
-                bottomLeft: Radius.circular(25),
-              ),
+              image: DecorationImage(image: AssetImage(imagePath), fit: BoxFit.cover),
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(25), bottomLeft: Radius.circular(25)),
             ),
           ),
-
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(15.0),
@@ -55,14 +46,8 @@ class FavoritePlaceCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    title,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    subTitle,
-                    style: const TextStyle(color: Colors.grey, fontSize: 13),
-                  ),
+                  Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text(subTitle, style: const TextStyle(color: Colors.grey, fontSize: 13)),
                   const Spacer(),
                   Row(
                     children: [
