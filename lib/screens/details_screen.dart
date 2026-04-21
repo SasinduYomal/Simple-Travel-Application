@@ -41,7 +41,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         leading: Padding(
           padding: const EdgeInsets.only(left: 16, top: 8),
           child: CircleAvatar(
-            backgroundColor: Colors.white.withOpacity(0.8),
+            backgroundColor: Colors.white,
             child: IconButton(
               icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black, size: 20),
               onPressed: () => Navigator.pop(context),
@@ -52,9 +52,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 16, top: 8),
             child: CircleAvatar(
-              backgroundColor: Colors.white.withOpacity(0.8),
+              backgroundColor: Colors.white,
               child: IconButton(
-                // Status එක අනුව icon සහ පාට වෙනස් වෙනවා [cite: 4, 5, 6]
                 icon: Icon(
                   _isFavorited ? Icons.favorite : Icons.favorite_border,
                   color: _isFavorited ? Colors.red : Colors.grey,

@@ -9,7 +9,7 @@ List<Place> places = [
     rating: 4.0,
     imagePath: 'assets/place1.jpg',
     category: 'Beach',
-    isFavourite: true,
+    isFavourite: false,
   ),
   Place(
     id: '2',
@@ -18,8 +18,8 @@ List<Place> places = [
     description: 'Gregory Lake is a peaceful attraction surrounded by misty hills.',
     rating: 4.3,
     imagePath: 'assets/place2.jpg',
-    category: 'Beach',
-    isFavourite: true,
+    category: 'Lakes',
+    isFavourite: false,
   ),
   Place(
     id: '3',
@@ -39,7 +39,7 @@ List<Place> places = [
     rating: 4.6,
     imagePath: 'assets/place4.jpg',
     category: 'Mountains',
-    isFavourite: true,
+    isFavourite: false,
   ),
   Place(
     id: '5',
@@ -59,6 +59,16 @@ List<Place> places = [
     rating: 4.7,
     imagePath: 'assets/place6.jpg',
     category: 'Cities',
+    isFavourite: false,
+  ),
+  Place(
+    id: '6',
+    name: 'Pasikuda Beach',
+    location: 'Batticaloa',
+    description: 'Pasikuda Beach, located on Sri Lanka’s eastern coast near Batticaloa, is a pristine, shallow bay renowned for its calm turquoise waters and soft golden sand. Perfect for families, it offers safe swimming and popular water sports like snorkeling, scuba diving, and jet skiing.',
+    rating: 3.5,
+    imagePath: 'assets/place7.jpg',
+    category: 'Beach',
     isFavourite: false,
   ),
 ];

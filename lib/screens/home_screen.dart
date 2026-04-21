@@ -61,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           _buildCategoryItem("Beach", Icons.beach_access_rounded),
                           _buildCategoryItem("Mountains", Icons.terrain_rounded),
                           _buildCategoryItem("Cities", Icons.location_city_rounded),
+                          _buildCategoryItem("Lakes", Icons.water),
                         ],
                       ),
                     ),
@@ -96,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         },
                       );
-                    }).toList(),
+                    })
                   ],
                 ),
               ),

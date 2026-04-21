@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import '../widgets/favorites_card.dart';
-import '../data/places_data.dart'; // Places data import එක [cite: 48]
+import '../data/places_data.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Favorite කරපු places විතරක් filter කරනවා [cite: 47]
     final favoritePlaces = places.where((p) => p.isFavourite).toList();
 
     return Scaffold(
@@ -24,7 +23,6 @@ class FavoritesScreen extends StatelessWidget {
                 Text('${favoritePlaces.length} saved places', style: const TextStyle(color: Colors.grey, fontSize: 16)),
                 const SizedBox(height: 25),
 
-                // List එක empty නම් මේක පෙන්වනවා
                 if (favoritePlaces.isEmpty)
                   const Padding(
                     padding: EdgeInsets.only(top: 50),
@@ -37,7 +35,7 @@ class FavoritesScreen extends StatelessWidget {
                     subTitle: place.location,
                     rating: place.rating.toString(),
                     imagePath: place.imagePath,
-                  )).toList(),
+                  )),
               ],
             ),
           ),
