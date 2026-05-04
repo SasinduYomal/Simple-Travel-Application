@@ -14,7 +14,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _nameController = TextEditingController();
   final _auth = AuthService();
 
-  bool _isLoading = false; // To show loading status when button is pressed
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -25,7 +25,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void _handleRegister() async {
-    // 1. Check if fields are empty
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty || _nameController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Please fill in all details")),
@@ -33,7 +32,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return;
     }
 
-    // 2. Check password length (Firebase requires at least 6 characters)
     if (_passwordController.text.length < 6) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Password must be at least 6 characters")),
@@ -41,9 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return;
     }
 
-    setState(() {
-      _isLoading = true;
-    });
+    setState(() => _isLoading = true);
 
     try {
       final user = await _auth.registerWithEmail(
@@ -56,7 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Successfully registered!")),
           );
-          Navigator.pop(context); // Go back to Login screen
+          Navigator.pop(context);
         }
       } else {
         if (mounted) {
@@ -73,9 +69,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       }
     } finally {
       if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
+        setState(() => _isLoading = false);
       }
     }
   }
@@ -83,65 +77,107 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          iconTheme: const IconThemeData(color: Colors.black)
+          iconTheme: const IconThemeData(color: Colors.white)
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(25.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Create Account", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 10),
-            const Text("Join with us to explore the world", style: TextStyle(color: Colors.grey)),
-            const SizedBox(height: 30),
 
-            TextField(
-              controller: _nameController,
-              decoration: InputDecoration(
-                labelText: "Full Name",
-                prefixIcon: const Icon(Icons.person_outline),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            TextField(
-              controller: _emailController,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                labelText: "Email",
-                prefixIcon: const Icon(Icons.email_outlined),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: "Password",
-                prefixIcon: const Icon(Icons.lock_outline),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-              ),
-            ),
-            const SizedBox(height: 30),
-
-            SizedBox(
-              width: double.infinity,
-              height: 55,
-              child: ElevatedButton(
-                onPressed: _isLoading ? null : _handleRegister,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            Container(
+              height: 350,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/register_header.jpg'),
+                  fit: BoxFit.cover,
                 ),
-                child: _isLoading
-                    ? const CircularProgressIndicator(color: Colors.white)
-                    : const Text("Sign Up", style: TextStyle(fontSize: 18, color: Colors.white)),
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(80)),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(80)),
+                  color: Colors.black.withOpacity(0.2),
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text("Create Account", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+                  const Text("Join with us to explore the world", style: TextStyle(color: Colors.grey)),
+                  const SizedBox(height: 30),
+
+                  // Name Field
+                  TextField(
+                    controller: _nameController,
+                    decoration: InputDecoration(
+                      labelText: "Full Name",
+                      prefixIcon: const Icon(Icons.person_outline),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Email Field
+                  TextField(
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      labelText: "Email",
+                      prefixIcon: const Icon(Icons.email_outlined),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Password Field
+                  TextField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                      prefixIcon: const Icon(Icons.lock_outline),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+
+                  // Sign Up Button
+                  SizedBox(
+                    width: double.infinity,
+                    height: 55,
+                    child: ElevatedButton(
+                      onPressed: _isLoading ? null : _handleRegister,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                      ),
+                      child: _isLoading
+                          ? const CircularProgressIndicator(color: Colors.white)
+                          : const Text("Sign Up", style: TextStyle(fontSize: 18, color: Colors.white)),
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Login link
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Already have an account?"),
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("Login Now"),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],
